@@ -30,15 +30,30 @@ class LoginComponent extends React.Component {
             <main className={classes.main}>
                 <CssBaseline></CssBaseline>
                 <Paper className={classes.paper}>
-                    <Typography component={'h1'} variant={'h5'}>
+                    <Typography
+                        component={'h1'}
+                        variant={'h5'}
+                    >
                         Log In!
                     </Typography>
-                    <form className={classes.form} onSubmit = {(e) => this.submitLogin(e)}>
-                        <FormControl required fullWidth margin={'normal'}>
+                    <form
+                        className={classes.form}
+                        onSubmit = {(e) => this.submitLogin(e)}
+                    >
+                        <FormControl
+                            required
+                            fullWidth
+                            margin={'normal'}
+                        >
                             <InputLabel htmlFor={'login-email-input'}>
                                 Enter your email
                             </InputLabel>
-                            <Input autoComplete={'email'} autoFocus id={'login-email-input'} onChange={(e) => this.userTyping('email', e)}/>
+                            <Input
+                                autoComplete={'email'}
+                                autoFocus
+                                id={'login-email-input'}
+                                onChange={(e) => this.userTyping('email', e)}
+                            />
                         </FormControl>
 
                         <FormControl required fullWidth margin={'normal'}>
