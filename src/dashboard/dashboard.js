@@ -41,7 +41,7 @@ class DashboardComponent extends Component {
                 }
 
                 {
-                    this.state.selectedChat !== null && !this.state.newChatFormVisible ? <ChatTextBoxComponent></ChatTextBoxComponent> : null
+                    this.state.selectedChat !== null && !this.state.newChatFormVisible ? <ChatTextBoxComponent submitMessageFn = {this.submitMessage} > </ChatTextBoxComponent> : null
                 }
 
                 <Button className={classes.signOutBtn } onClick={this.signOut}>Sign Out</Button>
@@ -53,6 +53,25 @@ class DashboardComponent extends Component {
 
     selectChat = (chatIndex) =>{
         this.setState({selectedChat: chatIndex})
+    };
+
+    //the key was user1:user2 in alphabetical order
+    buildDocKey = (friend) => [this.state.email, friend].sort().join(':');
+
+    submitMessage = (msg) => {
+        const docKey = this.buildDocKey(this.state.chats[this.state.selectedChat].users.filter(_usr => _usr !== this.state.email)[0]);
+        firebase
+            .firestore()
+            .collection('chats')
+            .doc(docKey)
+            .update({
+                messages: firebase.firestore.FieldValue.arrayUnion({
+                    sender: this.state.email,
+                    message: msg,
+                    timestamp: Date.now()
+                }),
+                recieverHasRead: false
+            });
     };
 
     newChatBtnClicked = () => {

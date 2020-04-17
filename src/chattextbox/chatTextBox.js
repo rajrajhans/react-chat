@@ -23,10 +23,11 @@ class ChatTextBoxComponent extends  React.Component{
                     className={classes.chatTextBox}
                     id={'chattextbox'}
                     onFocus={this.userClickedInput}
+                    required
                 />
 
                 <Send onClick={this.submitMessage}
-                      className={classes.submitMessage}
+                      className={classes.sendBtn}
                 />
             </div>
         )
@@ -47,8 +48,12 @@ class ChatTextBoxComponent extends  React.Component{
         if(this.messageValid(this.state.chatText)){
             // call parent function
             document.getElementById('chattextbox').value = '';
+            this.props.submitMessageFn(this.state.chatText)
+        }
+        else{
+            console.log("Invalid Message")
         }
     };
 }
-
+//TODO YouTube video Part 7 - 13mins
 export default withStyles(styles)(ChatTextBoxComponent)
