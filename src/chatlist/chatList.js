@@ -40,6 +40,7 @@ class ChatListComponent extends React.Component{
                                                 <Avatar alt={'Raj R'}>
                                                     {_chat.users.filter(_user => _user !== this.props.userEmail)[0].split('')[0]}
                                                 </Avatar>
+                                            </ListItemAvatar>
                                                 <ListItemText
                                                     primary={_chat.users.filter(_user => _user !== this.props.userEmail)[0]}
                                                     secondary={
@@ -53,7 +54,12 @@ class ChatListComponent extends React.Component{
                                                     }>
 
                                                 </ListItemText>
-                                            </ListItemAvatar>
+                                            {
+                                                _chat.recieverHasRead === false && !this.userIsSender(_chat) ?
+                                                    <ListItemIcon>
+                                                        <NotificationImportant className={classes.unreadMessage}/>
+                                                    </ListItemIcon> : null
+                                            }
                                         </ListItem>
                                         <Divider/>
                                     </div>
@@ -83,6 +89,7 @@ class ChatListComponent extends React.Component{
         this.props.selectChatFn(index);
     }
 
+    userIsSender = (chat) => chat.messages[chat.messages.length - 1].sender === this.props.userEmail;
 }
 
 export default withStyles(styles)(ChatListComponent);

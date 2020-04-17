@@ -41,7 +41,7 @@ class ChatTextBoxComponent extends  React.Component{
         txt && txt.replace(/\s/g, '').length;  //checks for empty message and empty spaces message
 
     userClickedInput = (e) =>{
-        console.log("clicked input")
+        this.props.messageRead();
     };
 
     submitMessage = (e) =>{
